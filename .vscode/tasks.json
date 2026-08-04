@@ -1,0 +1,16 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "run cervical",
+      "type": "shell",
+      "command": "python cervical.py",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "runOptions": { "runOn": "folderOpen" }
+    }
+  ]
+}

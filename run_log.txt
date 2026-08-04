@@ -1,0 +1,12 @@
+n=858 | biopsy-positive 55 (6.4%) | rows with no missing values 59
+'drop incomplete rows' would keep 7% of the study
+
+baseline 'nobody has cancer': accuracy 93.6%, recall 0%
+
+A) mean-impute only        : accuracy  86.9%  positive-recall mean  22.6% (min   7%, max  44%)  flags/172 16
+B) impute + missing flags  : accuracy  87.0%  positive-recall mean  20.5% (min   0%, max  44%)  flags/172 16
+
+All numbers are means over 10 split seeds - a single split on
+~11 test positives is a lottery. Accuracy barely moves between any of
+these models; recall on the 55 women who actually had a positive
+biopsy is the only number that separates them.
