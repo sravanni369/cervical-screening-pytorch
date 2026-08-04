@@ -86,10 +86,11 @@ def train_and_eval(x, y, seed):
 
     with torch.no_grad():
         pred = (model(x_te).squeeze(1) > 0).float()
+        final_loss = float(loss_fn(model(x_tr).squeeze(1), y[tr]))
     pos = y[te] == 1
     acc = float((pred == y[te]).float().mean() * 100)
     rec = float((pred[pos] == 1).float().mean() * 100) if pos.any() else float("nan")
-    return acc, rec, int(pred.sum())
+    return acc, rec, int(pred.sum()), final_loss
 
 
 def sweep(tag, x, y):
@@ -97,8 +98,10 @@ def sweep(tag, x, y):
     acc = sum(r[0] for r in runs) / SEEDS
     recs = [r[1] for r in runs if r[1] == r[1]]  # drop NaN (no positives drawn)
     flag = sum(r[2] for r in runs) / SEEDS
+    loss = sum(r[3] for r in runs) / SEEDS
     print(f"{tag}: accuracy {acc:5.1f}%  positive-recall mean {sum(recs)/len(recs):5.1f}% "
-          f"(min {min(recs):3.0f}%, max {max(recs):3.0f}%)  flags/172 {flag:.0f}")
+          f"(min {min(recs):3.0f}%, max {max(recs):3.0f}%)  flags/172 {flag:.0f}  "
+          f"train loss {loss:.3f}")
 
 
 if __name__ == "__main__":

@@ -61,6 +61,20 @@ stdlib + PyTorch only, CPU, about a minute. Full unedited output in
 
 ![VS Code run](vscode_run.png)
 
+## Audit trail
+
+An [evaluation auditor](https://github.com/sravanni369/fizzbuzz-evaluation-traps)
+run over this repo after publication flagged two gaps, both now closed:
+
+- **23 of 858 rows (2.7%) are duplicates.** Small enough not to move the
+  headline, but it went unchecked in the first version and is stated here rather
+  than left implicit.
+- **A negative result was published without a convergence check.** Training loss
+  is now printed on every run (0.110 and 0.082). Re-running at 2,000 epochs
+  instead of 300 gives 88.5% accuracy and 22.1% recall — still below the 93.6%
+  baseline, still catching about one positive in five. **The conclusion holds**,
+  but it now holds with evidence rather than by assumption.
+
 ## Honest scope
 
 One hospital, one city, 858 patients. Class-weighted loss deliberately trades
